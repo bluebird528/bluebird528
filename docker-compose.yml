@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: webeditor-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: root123
+      MARIADB_DATABASE: webeditor
+      MARIADB_USER: webeditor
+      MARIADB_PASSWORD: webeditor123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webeditor-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/webeditor?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: webeditor
+      SPRING_DATASOURCE_PASSWORD: webeditor123
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:

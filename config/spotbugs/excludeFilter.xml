@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Exclude generated code -->
+    <Match>
+        <Class name="~.*\.Q.*"/>
+    </Match>
+
+    <!-- Exclude test code from certain checks -->
+    <Match>
+        <Class name="~.*Test"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+
+    <!-- Exclude entity classes from serialization warnings -->
+    <Match>
+        <Package name="~com\.bluebird\.webeditor\.entity.*"/>
+        <Bug pattern="SE_NO_SERIALVERSIONID"/>
+    </Match>
+
+    <!-- Exclude DTO classes from serialization warnings -->
+    <Match>
+        <Package name="~com\.bluebird\.webeditor\.dto.*"/>
+        <Bug pattern="SE_NO_SERIALVERSIONID"/>
+    </Match>
+</FindBugsFilter>

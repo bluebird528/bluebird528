@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: web-editor-file-upload-test
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    # Testcontainers will override this
+    url: jdbc:mariadb://localhost:3306/test
+    username: test
+    password: test
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    com.bluebird.webeditor: DEBUG
+
+file:
+  upload:
+    dir: ./test-uploads
+    max-size: 52428800
+    allowed-extensions: jpg,jpeg,png,gif,pdf,txt
