@@ -109,22 +109,16 @@ spotbugs {
     excludeFilter = file("${project.rootDir}/config/spotbugs/excludeFilter.xml")
 }
 
-spotbugsMain {
-    effort = com.github.spotbugs.snom.Effort.MAX
-    reportLevel = com.github.spotbugs.snom.Confidence.MEDIUM
-}
-
-spotbugsTest {
-    effort = com.github.spotbugs.snom.Effort.MAX
-    reportLevel = com.github.spotbugs.snom.Confidence.MEDIUM
-}
-
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+    effort = com.github.spotbugs.snom.Effort.MAX
     reports {
         html {
             required = true
             outputLocation = file("$buildDir/reports/spotbugs/${name}.html")
             stylesheet = 'fancy-hist.xsl'
+        }
+        xml {
+            required = false
         }
     }
 }
